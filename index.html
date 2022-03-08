@@ -1,136 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/d50e5398b7.js" crossorigin="anonymous"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* CSS reset*/
+
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --header-color: #ffe8d6;
+        --nav-color: #b7b7a4;
+        --main-color: #6b705c;
+        --right-color: #b7b7a4;
+        --button-color: #cb997e;
+        --card-color: #a5a58d;
+        --card-bottom-color: #a5a58d;
+        --announcement-border-color: #6b705c;
+        --avatar-color: #cb997e;
+        --card-icon-color: #6b705c;
+      }
+
+      /* System font stack*/
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .container {
+        height: 100vh;
+        display: grid;
+        grid-template: 0.2fr 1fr / auto 1fr;
+      }
+
+      header {
+        background-color: var(--header-color);
+        grid-column: 2/3;
+      }
+
+      nav {
+        background-color: var(--nav-color);
+        grid-row: 1/3;
+        padding: 1rem;
+        font-size: .9rem;
+        color: white;
+      }
+
+      nav h1 {
+        font-weight: 800;
+        font-size: 1.5rem;
+      }
+
+      li {
+        margin-top: 1rem;
+      }
+
+      ul {
+        list-style-type: none;
+        margin-bottom: 2rem;
+      }
+
+      main {
+        display: grid;
+        grid-template: 1fr / 1fr 0.2fr;
+        background-color: var(--main-color);
+      }
+
+      .upper {
+        padding: 0 0.4rem;
+
+        height: 50%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .upper > .elem.avatar {
+        margin-left: auto;
+      }
+
+      .lower {
+        padding: 0 0.4rem;
+
+        height: 50%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lower > button:first-of-type {
+        margin-left: auto;
+      }
+
+      button {
+        background-color: var(--button-color);
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 1rem;
+      }
+
+      button:active,
+      li:active {
+        transform: translateY(4px);
+
+      }
+
+      .left {
+        display: grid;
+        grid-template: 20px repeat(auto-fit, 30%) / repeat(3, 1fr);
+        padding: 1rem;
+        gap: 10px;
+      }
+
+      .left > h1 {
+        grid-row: 1/2;
+        grid-column: 1/4;
+      }
+
+      .card {
+        background-color: var(--card-color);
+        display: flex;
+        flex-wrap: wrap;
+        padding: .2rem;
+      }
+
+      .card i {
+        margin: 0 .3rem;
+        color: var(--card-icon-color);
+      }
+
+      .top {
+        width: 100%;
+      }
+
+      .top h2 {
+        font-weight: 800;
+      }
+
+      .bottom {
+        background-color: var(--card-bottom-color);
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+
+      .right {
+        padding: .5rem;
+        background-color: var(--right-color);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .announcements {
+        height: 40%;
+        font-size: .6rem;
+      }
+
+      .announcements * {
+        margin-top: .5rem;
+      }
+
+      .announcements h2 {
+        font-size: .8rem;
+        font-weight: 900;
+      }
+      .announcement h3 {
+        font-size: .7rem;
+        font-weight: 800;
+      }
+
+      .announcement {
+        border-bottom: 5px solid var(--announcement-border-color);
+      }
+
+      .trending {
+        height: 60%;
+        display: grid;
+        grid-template: 0.2fr repeat(4, 1fr) / 0.2fr 1fr;
+        align-items: center;
+      }
+
+      .right > h1 {
+        height: 10%;
+      }
+
+      .avatar {
+        background-color: var(--avatar-color);
+        height: 3vw;
+        width: 3vw;
+        border-radius: 50%;
+        grid-column: 1/2;
+      }
+
+      #search {
+        width: 50%;
+        height: 2rem;
+      }
+
+      .card {
+        font-size: .8rem;
+      }
+
+      .trending p {
+        font-size: .6rem;
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/d50e5398b7.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <div class="search-container">
-                <label for="search">
-                    <i class="fa-solid fa-2x fa-magnifying-glass"></i>
-                </label>
-                <input type="text" name="search" id="search" maxlength="100">    
-            </div>
-            
-            <div class="top-right-container">
-                <button type="button">
-                    <i class="fa-solid fa-2x fa-bell"></i>
-                </button>
-                <a href="./index.html">
-                    <div class="avatar"></div>
-                </a>
-                <button type="button">  
-                    <span>Benjamin-Re</span>
-                </button>
-                
-            </div>
+      <header>
+        <div class="upper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" name="search" id="search" />
+          <div class="elem avatar"></div>
+          <div class="elem">@name</div>
+        </div>
+        <div class="lower">
+          <div class="elem avatar"></div>
+          <div class="elem">
+            <p style="font-size: 0.7rem">Hi there</p>
+            <p>name</p>
+          </div>
+          <button>News</button><button>Upload</button><button>Share</button>
+        </div>
+      </header>
+      <nav>
+        <h1>Dashboard</h1>
+        <ul>
+          <li>Home</li>
+          <li>Profile</li>
+          <li>Messages</li>
+          <li>History</li>
+          <li>Tasks</li>
+        </ul>
+        <ul>
+          <li>Settings</li>
+          <li>Support</li>
+          <li>Privacy</li>
+        </ul>
+      </nav>
+      <main>
+        <div class="left">
+          <h1>Your Projects</h1>
 
-            <div class="lower-left">
-                <div class="avatar big"></div>
-                <span>Hi there, <br> <h2>Benjamin-Re(@Ben)</h2></span>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
             </div>
-            <div class="lower-right">
-                <button type="button">New</button>
-                <button type="button">Upload</button>
-                <button type="button">Share</button>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
             </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <h2>Super Cool Project</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minima aut maxime repellat qui cumque provident repudiandae sequi laborum suscipit voluptate numquam quasi.</p>
+            </div>
+            <div class="bottom">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-share"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
 
-        </header>
-        <aside>
-            <h1>Dashboard</h1>
-            <ul>
-                <li>
-                    <i class="fa-solid fa-house"></i>
-                    Home
-                </li>
-                <li>
-                    <i class="fa-solid fa-user"></i>
-                    Profile
-                </li>
-                <li><i class="fa-solid fa-message"></i></i>
-                    Messages
-                </li>
-                <li><i class="fa-solid fa-clock-rotate-left"></i>
-                    History
-                </li>
-                <li><i class="fa-solid fa-bars-progress"></i>
-                    Tasks
-                </li>
-                <li><i class="fa-solid fa-users"></i>
-                    Communities
-                </li>
-            </ul>
-            <ul>
-                <li><i class="fa-solid fa-gear"></i>
-                    Settings
-                </li>
-                <li><i class="fa-solid fa-circle-info"></i>
-                    Support
-                </li>
-                <li><i class="fa-solid fa-lock"></i>
-                    Privacy
-                </li>
-            </ul>
-
-        </aside>
-        <main>
-            <h2>Your Projects</h2>
+        </div>
+        <div class="right">
+          <div class="announcements">
             <h2>Announcements</h2>
-            <div class="article">
-                
-                <div class="card">
-                    <h3>Super Cool Project</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                <div class="card">
-                    <h3>Less Cool Project</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                <div class="card">
-                    <h3>Impossible App</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                <div class="card">
-                    <h3>Easy Peasy App</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                <div class="card">
-                    <h3>Ad Blocker</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                <div class="card">
-                    <h3>Money Maker</h3> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate et sapiente porro beatae inventore, veritatis magni fugit sit sint dolore id quod perspiciatis eligendi fugiat dicta! Nulla, numquam soluta.</p>
-                </div>
-                
+            <div class="announcement">
+              <h3>Site Maintenance</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
-            <div class="right">
-                <div class="announcements">
-                    
-                    <p>
-                        <h3>Site Maintenance</h3>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit eveniet non repellendus ad voluptate id rem magnam aut? Aliquam vel quos, quod recusandae odio dolor! Qui officia quaerat deserunt. Quia!
-                    </p>
-                    <hr>
-                    <p>
-                        <h3>Community Share Day</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, dignissimos architecto! Fugit officia, ipsam molestias totam obcaecati doloribus expedita vero accusantium tempora distinctio commodi praesentium nihil consequatur non assumenda reiciendis!
-                    </p>
-                    <hr>
-                    <p>
-                        <h3>Updated Privacy Policy</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, dignissimos architecto! Fugit officia, ipsam molestias totam obcaecati doloribus expedita vero accusantium tempora distinctio commodi praesentium nihil consequatur non assumenda reiciendis!
-                    </p>
-                </div>
-                <div class="trending">
-                    <h2>Trending</h2>
-                    <div class="avatar"></div><div class="avatar-text"><p>@tegan</p>World peace builder</div>
-                    <div class="avatar"></div><div class="avatar-text"><p>@morgan</p>Super Cool Project</div>
-                    <div class="avatar"></div><div class="avatar-text"><p>@kendall</p>Life Changing App</div>
-                    <div class="avatar"></div><div class="avatar-text"><p>@alex</p>No Traffic Maker</div>
-                </div>
+            <div class="announcement">
+              <h3>Updated Privacy Policy</h3>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
-        </main>
+          </div>
+          <div class="trending">
+            <h2>Trending</h2>
+            <div class="avatar"></div>
+            <div class="name">
+              <h3>@teagan</h3>
+              <p>Great Idea</p>
+            </div>
+            <div class="avatar"></div>
+            <div class="name">
+              <h3>@morgan</h3>
+              <p>Amazing</p>
+            </div>
+            <div class="avatar"></div>
+            <div class="name">
+              <h3>@kenny</h3>
+              <p>Innovator</p>
+            </div>
+            <div class="avatar"></div>
+            <div class="name">
+              <h3>@alfred</h3>
+              <p>Pretty pretty pretty good</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-</body>
+  </body>
 </html>
